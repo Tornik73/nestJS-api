@@ -9,19 +9,14 @@ export class AuthController {
     @Post('authenticate')
     async login(@Request() req, @Response() res) {
         const body = req.body;
-        const user: User = await this.authService.sign(body);
+        const user = await this.authService.sign(body);
         res.status(HttpStatus.ACCEPTED).json({
-            // data: user.data,
-            email: user.email,
-            id: user.id,
-            password: user.password,
-            age: user.age,
-            telephone: user.telephone,
+            token: user.data,
             img: user.img,
         });
     }
 
-    @UsePipes(new ValidationPipe())
+    // @UsePipes(new ValidationPipe())
     @Post('register')
     async create(@Request() req) {
         return this.authService.create(Object.assign( req.body, {isAdmin : req.body.isAdmin || 0}));

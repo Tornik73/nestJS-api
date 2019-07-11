@@ -4,6 +4,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Users } from './create-user.models';
 import { Repository } from 'typeorm';
 
+import jwtDecode = require('jwt-decode');
+
 @Injectable()
 export class UsersService {
     constructor(@InjectRepository(Users)
@@ -27,5 +29,10 @@ export class UsersService {
 
     async deleteUser(id): Promise<any> {
         return await this.userRepository.delete(id);
+    }
+
+    async findOneByToken(userToken: string): Promise<any> {
+        const user = await jwtDecode(userToken);
+        return await user;
     }
 }

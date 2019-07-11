@@ -16,6 +16,7 @@ export class AuthService {
                 private readonly authRepository: Repository<Users>,
                 // private readonly userService: UsersService,
                 private readonly jwtService: JwtService,
+                private readonly userService: UsersService,
     ) {}
 
     async sign(thisUser: {email: string, password: string}): Promise<any> {
@@ -28,12 +29,13 @@ export class AuthService {
             throw new HttpException({ message: 'User with such email does not exist'}, HttpStatus.BAD_REQUEST);
         }
         const matchPasswords = await bcrypt.compare(password, responseUser.password);
-        
-        
         if (!matchPasswords) {
             throw new HttpException({ message: 'No such user exists' }, HttpStatus.BAD_REQUEST);
         }
-        const payload = JSON.stringify(responseUser);
+
+        const payloadUser = {id: responseUser.id, email: responseUser.email, password: responseUser.password,
+                telephone: responseUser.telephone, age: responseUser.age, isAdmin: responseUser.isAdmin};
+        const payload = JSON.stringify(payloadUser);
         const accessToken = await this.jwtService.sign(payload);
         return await Object.assign(responseUser, {data: accessToken});
     }

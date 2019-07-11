@@ -12,6 +12,10 @@ import { AuthController } from './auth/auth.controller';
 import { AuthService } from './auth/auth.service';
 import { JwtModule } from '@nestjs/jwt';
 import { LoggerMiddleware } from './logger.middleware';
+import { BooksController } from './books/books.controller';
+import { Books } from './books/create-book.models';
+import { BooksService } from './books/books.service';
+import { HttpStrategy } from './service/http.strategy';
 
 @Module({
   imports: [
@@ -24,14 +28,14 @@ import { LoggerMiddleware } from './logger.middleware';
         username: 'root',
         password: 'root',
         database: 'bookstore',
-        entities : [Users],
+        entities : [Users, Books],
         synchronize: true,
       },
     ),
     TypeOrmModule.forFeature([Users]),
-    // TypeOrmModule.forFeature([Books]),
+    TypeOrmModule.forFeature([Books]),
     JwtModule.register({
-      secretOrPrivateKey: 'secret12356789',
+      secret: 'secret12356789',
     }),
   ],
   controllers: [
@@ -39,12 +43,15 @@ import { LoggerMiddleware } from './logger.middleware';
     ItemsController,
     UsersController,
     AuthController,
+    BooksController,
   ],
   providers: [
     AppService,
     ItemsService,
     UsersService,
+    BooksService,
     AuthService,
+    HttpStrategy,
   ],
 })
 export class AppModule implements NestModule {
@@ -53,8 +60,7 @@ export class AppModule implements NestModule {
       .apply(LoggerMiddleware)
       .forRoutes(
         { path: 'users', method: RequestMethod.ALL },
-        // { path: 'books', method: RequestMethod.ALL },
+        { path: 'books', method: RequestMethod.ALL },
         { path: 'authenticate', method: RequestMethod.ALL });
-        // { path: 'register', method: RequestMethod.ALL })
   }
 }
