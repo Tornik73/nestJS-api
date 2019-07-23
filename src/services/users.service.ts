@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { User } from '../interface/user.interface';
+import { User } from '../models/users/user.model';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Users } from './create-user.models';
+import { Users } from '../models/users/create-user.models';
 import { Repository } from 'typeorm';
 
 import jwtDecode = require('jwt-decode');

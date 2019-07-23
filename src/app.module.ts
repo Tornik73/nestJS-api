@@ -1,25 +1,22 @@
 import { Module, RequestMethod, MiddlewareConsumer, NestModule } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { ItemsController } from './items/items.controller';
-import { ItemsService } from './items/items.service';
+// import { AppController } from './app.controller';
+import { AppService } from './services/app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ItemsModule } from './items/items.module';
-import { Users } from './users/create-user.models';
-import { UsersController } from './users/users.controller';
-import { UsersService } from './users/users.service';
-import { AuthController } from './auth/auth.controller';
-import { AuthService } from './auth/auth.service';
+import { Users } from './models/users/create-user.models';
+import { UsersController } from './controllers/users.controller';
+import { UsersService } from './services/users.service';
+import { AuthController } from './controllers/auth.controller';
+import { AuthService } from './services/auth.service';
 import { JwtModule } from '@nestjs/jwt';
-import { LoggerMiddleware } from './logger.middleware';
-import { BooksController } from './books/books.controller';
-import { Books } from './books/create-book.models';
-import { BooksService } from './books/books.service';
-import { HttpStrategy } from './service/http.strategy';
+// import { LoggerMiddleware } from './logger.middleware';
+import { BooksController } from './controllers/books.controller';
+import { Books } from './models/books/create-book.models';
+import { BooksService } from './services/books.service';
+import { HttpStrategy } from './common/http.strategy';
+import { BookRepository } from './repositories/book.repository';
 
 @Module({
   imports: [
-    ItemsModule,
     TypeOrmModule.forRoot(
       {
         type: 'mysql',
@@ -34,20 +31,18 @@ import { HttpStrategy } from './service/http.strategy';
     ),
     TypeOrmModule.forFeature([Users]),
     TypeOrmModule.forFeature([Books]),
+    TypeOrmModule.forFeature([BookRepository]),
     JwtModule.register({
       secret: 'secret12356789',
     }),
   ],
   controllers: [
-    AppController,
-    ItemsController,
     UsersController,
     AuthController,
     BooksController,
   ],
   providers: [
     AppService,
-    ItemsService,
     UsersService,
     BooksService,
     AuthService,
@@ -57,7 +52,7 @@ import { HttpStrategy } from './service/http.strategy';
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
-      .apply(LoggerMiddleware)
+      .apply()
       .forRoutes(
         { path: 'users', method: RequestMethod.ALL },
         { path: 'books', method: RequestMethod.ALL },

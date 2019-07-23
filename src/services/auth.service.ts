@@ -1,9 +1,9 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from '../interface/user.interface';
-import { Users } from '../users/create-user.models';
+import { User } from '../models/users/user.model';
+import { Users } from '../models/users/create-user.models';
 import { Repository, getRepository } from 'typeorm';
-import { UsersService } from '../users/users.service';
+import { UsersService } from './users.service';
 import { JwtService } from '@nestjs/jwt';
 
 import bcrypt = require('bcrypt');
@@ -14,7 +14,6 @@ export class AuthService {
 
     constructor(@InjectRepository(Users)
                 private readonly authRepository: Repository<Users>,
-                // private readonly userService: UsersService,
                 private readonly jwtService: JwtService,
                 private readonly userService: UsersService,
     ) {}
