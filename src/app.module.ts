@@ -1,52 +1,35 @@
 import { Module, RequestMethod, MiddlewareConsumer, NestModule } from '@nestjs/common';
-// import { AppController } from './app.controller';
-import { AppService } from './services/app.service';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { Users } from './models/users/create-user.models';
-import { UsersController } from './controllers/users.controller';
-import { UsersService } from './services/users.service';
-import { AuthController } from './controllers/auth.controller';
-import { AuthService } from './services/auth.service';
-import { JwtModule } from '@nestjs/jwt';
-// import { LoggerMiddleware } from './logger.middleware';
-import { BooksController } from './controllers/books.controller';
-import { Books } from './models/books/create-book.models';
+import { AuthorService } from './services/author.service';
+import { authorsProviders } from './models/authors/authors.providers';
+import { AuthorRepository } from './repositories/author.repository';
 import { BooksService } from './services/books.service';
-import { HttpStrategy } from './common/http.strategy';
 import { BookRepository } from './repositories/book.repository';
-
+import { booksProviders } from './models/books/books.providers';
+import { BooksController, UsersController } from './controllers';
+import { AuthorController } from './controllers/author.controller';
+import { authorBookProviders } from './models/authorsBooks/authorsBooks.providers';
+import { DatabaseModule } from './database/database.module';
+import { usersProviders } from './models/users/users.providers';
+import { UserRepository } from './repositories/user.repository';
+import { UsersService } from './services/users.service';
 @Module({
   imports: [
-    TypeOrmModule.forRoot(
-      {
-        type: 'mysql',
-        host: 'localhost',
-        port: 3306,
-        username: 'root',
-        password: 'root',
-        database: 'bookstore',
-        entities : [Users, Books],
-        synchronize: true,
-      },
-    ),
-    TypeOrmModule.forFeature([Users]),
-    TypeOrmModule.forFeature([Books]),
-    TypeOrmModule.forFeature([BookRepository]),
-    JwtModule.register({
-      secret: 'secret12356789',
-    }),
+    DatabaseModule,
   ],
-  controllers: [
-    UsersController,
-    AuthController,
-    BooksController,
-  ],
+  controllers: [AuthorController, BooksController, UsersController],
   providers: [
-    AppService,
-    UsersService,
+    AuthorService,
     BooksService,
-    AuthService,
-    HttpStrategy,
+    UsersService,
+
+    BookRepository,
+    AuthorRepository,
+    UserRepository,
+
+    ...booksProviders,
+    ...authorBookProviders,
+    ...authorsProviders,
+    ...usersProviders,
   ],
 })
 export class AppModule implements NestModule {
@@ -56,6 +39,7 @@ export class AppModule implements NestModule {
       .forRoutes(
         { path: 'users', method: RequestMethod.ALL },
         { path: 'books', method: RequestMethod.ALL },
+        { path: 'authors', method: RequestMethod.ALL },
         { path: 'authenticate', method: RequestMethod.ALL });
   }
 }

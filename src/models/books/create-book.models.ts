@@ -1,22 +1,32 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
-@Entity()
+import { Column,
+    Model,
+    Table,
+    AutoIncrement,
+    PrimaryKey, BelongsToMany, HasMany } from 'sequelize-typescript';
 
-export class Books {
-    @PrimaryGeneratedColumn()
+import { AuthorsBooks } from '../authorsBooks/create-authorsBooks';
+
+@Table
+export class Books extends Model<Books> {
+
+    @PrimaryKey
+    @AutoIncrement
+    @Column
     id: number;
 
-    @Column()
-    title: string = null;
+    @Column
+    title: string;
 
-    @Column()
-    author: string;
-
-    @Column()
+    @Column
     price: number;
 
-    @Column('text')
-    img: string = null;
+    @Column
+    img: string;
 
-    @Column('text')
+    @Column
     description: string;
+
+    @HasMany(() => AuthorsBooks)
+    authorBooks: AuthorsBooks[];
+
 }

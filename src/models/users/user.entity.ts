@@ -2,7 +2,7 @@ export interface User {
     id: number;
     email: string;
     password: string;
-    isAdmin: number;
+    isAdmin: boolean;
     telephone: string;
     age: number;
     img: string;

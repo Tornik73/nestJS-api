@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Body, Delete, Put, Param, UseGuards } from '@nestjs/common';
 import { BooksService } from '../services/books.service';
-import { Book } from '../models/books/book.model';
+import { BookEntity } from '../models/books/book.entity';
 import { AuthGuard } from '@nestjs/passport';
 
 @Controller('books')
@@ -19,13 +19,13 @@ export class BooksController {
     }
 
     @Post('')
-    createBook(@Body() book: Book) {
+    createBook(@Body() book) {
         return this.bookService.addBook(book);
     }
 
     @Put(':id')
     // @UseGuards(AuthGuard('bearer'))
-    changeUser(@Body() book: Book, @Param('id') id) {
+    changeBook(@Body() book, @Param('id') id) {
         return this.bookService.updateBook(id, book);
     }
 

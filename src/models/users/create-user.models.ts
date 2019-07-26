@@ -1,25 +1,27 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
-@Entity()
+import { Column, Model, Table, AutoIncrement, PrimaryKey } from 'sequelize-typescript';
 
-export class Users {
-    @PrimaryGeneratedColumn()
+@Table
+export class Users extends Model<Users> {
+    @PrimaryKey
+    @AutoIncrement
+    @Column
     id: number;
 
-    @Column()
+    @Column
     email: string;
 
-    @Column()
+    @Column
     password: string;
 
-    @Column()
-    isAdmin: number;
+    @Column
+    isAdmin: boolean;
 
-    @Column()
+    @Column
     telephone: string;
 
-    @Column()
+    @Column
     age: number;
 
-    @Column('text')
-    img: string = null;
+    @Column
+    img: string;
 }

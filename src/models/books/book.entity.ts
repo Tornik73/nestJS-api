@@ -1,7 +1,6 @@
-export interface Book {
+export interface BookEntity {
     id: number;
     title: string;
-    author: string;
     price: number;
     img: string;
     description: string;

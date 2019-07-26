@@ -1,38 +1,34 @@
-import { Injectable } from '@nestjs/common';
-import { User } from '../models/users/user.model';
-import { InjectRepository } from '@nestjs/typeorm';
+import { Injectable, Inject } from '@nestjs/common';
+import { User } from '../models/users/user.entity';
 import { Users } from '../models/users/create-user.models';
-import { Repository } from 'typeorm';
-
-import jwtDecode = require('jwt-decode');
+import { UserRepository } from '../repositories/user.repository';
 
 @Injectable()
 export class UsersService {
-    constructor(@InjectRepository(Users)
-    private readonly userRepository: Repository<Users>) {
+    constructor(@Inject(UserRepository)
+    private readonly userRepository: UserRepository) {
     }
     async findAll(): Promise<User[]> {
-        return await this.userRepository.find();
+        return await this.userRepository.getAll();
     }
 
-    async findOne(id): Promise<User> {
-        return await this.userRepository.findOne(id);
+    async findOne(id: number): Promise<Users> {
+        return await this.userRepository.getOneById(id);
     }
 
-    async addUser(user: User): Promise<any> {
-        return await this.userRepository.insert(user);
+    async addUser(user: Users): Promise<Users> {
+        return await this.userRepository.addUser(user);
     }
 
-    async updateUser(id, user: User): Promise<any> {
-        return await this.userRepository.update(id, user);
+    async updateUser(id: number, user: Users): Promise<Users> {
+        return await this.userRepository.updateUser(id, user);
     }
 
-    async deleteUser(id): Promise<any> {
-        return await this.userRepository.delete(id);
+    async deleteUser(id: number): Promise<Users> {
+        return await this.userRepository.deleteUser(id);
     }
 
-    async findOneByToken(userToken: string): Promise<any> {
-        const user = await jwtDecode(userToken);
-        return await user;
-    }
+    // async findOneByToken(userToken: string): Promise<any> {
+    //     return await this.userRepository.findOneByToken(userToken);
+    // }
 }
