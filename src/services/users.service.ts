@@ -16,10 +16,12 @@ export class UsersService {
         return await this.userRepository.getOneById(id);
     }
 
-    async addUser(user: Users): Promise<Users> {
+    async addUser(user): Promise<Users> {
         return await this.userRepository.addUser(user);
     }
-
+    async findOneByEmail(email: string): Promise<Users> {
+        return await this.userRepository.getOneByEmail(email);
+    }
     async updateUser(id: number, user: Users): Promise<Users> {
         return await this.userRepository.updateUser(id, user);
     }
@@ -28,7 +30,7 @@ export class UsersService {
         return await this.userRepository.deleteUser(id);
     }
 
-    // async findOneByToken(userToken: string): Promise<any> {
-    //     return await this.userRepository.findOneByToken(userToken);
-    // }
+    async findOneByToken(userToken: string): Promise<any> {
+        return await this.userRepository.findOneByToken(userToken);
+    }
 }

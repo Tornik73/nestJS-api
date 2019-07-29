@@ -12,20 +12,32 @@ import { DatabaseModule } from './database/database.module';
 import { usersProviders } from './models/users/users.providers';
 import { UserRepository } from './repositories/user.repository';
 import { UsersService } from './services/users.service';
+import { AuthController } from './controllers/auth.controller';
+import { AuthService } from './services/auth.service';
+import { AuthRepository } from './repositories/auth.repository';
+import { environment } from './environment';
+import { JwtModule } from '@nestjs/jwt';
+import { HttpStrategy } from './common/http.strategy';
+
 @Module({
   imports: [
+    JwtModule.register({
+      secret: '123456789',
+      // signOptions: { expiresIn: environment().tokenExpireTime },
+    }),
     DatabaseModule,
   ],
-  controllers: [AuthorController, BooksController, UsersController],
+  controllers: [AuthorController, BooksController, UsersController, AuthController],
   providers: [
+    HttpStrategy,
     AuthorService,
     BooksService,
     UsersService,
-
+    AuthService,
     BookRepository,
     AuthorRepository,
     UserRepository,
-
+    AuthRepository,
     ...booksProviders,
     ...authorBookProviders,
     ...authorsProviders,
@@ -40,6 +52,7 @@ export class AppModule implements NestModule {
         { path: 'users', method: RequestMethod.ALL },
         { path: 'books', method: RequestMethod.ALL },
         { path: 'authors', method: RequestMethod.ALL },
-        { path: 'authenticate', method: RequestMethod.ALL });
+        { path: 'authenticate', method: RequestMethod.ALL },
+        { path: 'register', method: RequestMethod.ALL });
   }
 }

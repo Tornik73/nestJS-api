@@ -2,6 +2,7 @@ import { Injectable, Inject } from '@nestjs/common';
 import { Users } from '../models/users/create-user.models';
 import jwtDecode = require('jwt-decode');
 import { USERS_REPOSITORY } from '../constants/constants';
+import { User } from '../models/users/user.model';
 
 @Injectable()
 export class UserRepository {
@@ -16,7 +17,11 @@ export class UserRepository {
         return await this.usersRepository.findOne({ where: { id: userID } });
     }
 
-    async addUser(user: Users): Promise<Users> {
+    async getOneByEmail(userEmail: string): Promise<Users> {
+        return await this.usersRepository.findOne({ where: { email: userEmail } });
+    }
+
+    async addUser(user: User): Promise<Users> {
         return await this.usersRepository.create(user);
     }
 
@@ -66,8 +71,8 @@ export class UserRepository {
         }
     }
 
-    // async findOneByToken(userToken: string): Promise<any> {
-    //     const user = await jwtDecode(userToken);
-    //     return await user;
-    // }
+    async findOneByToken(userToken: string): Promise<any> {
+        const user = await jwtDecode(userToken);
+        return await user;
+    }
 }

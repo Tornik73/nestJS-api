@@ -3,6 +3,7 @@ import { PassportStrategy } from '@nestjs/passport';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 // import { AuthService } from '../services/auth.service';
 import { UsersService } from '../services/users.service';
+import { User } from '../models/users/user.model';
 
 @Injectable()
 export class HttpStrategy extends PassportStrategy(Strategy) {
@@ -11,12 +12,12 @@ export class HttpStrategy extends PassportStrategy(Strategy) {
         super();
     }
 
-    // async validate(token: any) {
-    //     const user = await this.userService.findOneByToken(token);
-    //     if (!user) {
-    //         throw new UnauthorizedException();
-    //     }
-    //     return user;
-    // }
+    public async validate(token: string): Promise<User> {
+        const user = await this.userService.findOneByToken(token);
+        if (!user) {
+            throw new UnauthorizedException();
+        }
+        return user;
+    }
 
 }
