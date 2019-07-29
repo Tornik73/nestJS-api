@@ -1,4 +1,4 @@
-export * from './books/book.entity';
+export * from './books/book.model';
 export * from './books/create-book.models';
 export * from './books/books.providers';
 
@@ -7,6 +7,6 @@ export * from './books/books.providers';
 // export * from './users/create-user.models';
 
 export * from './auth/auth.model';
-export * from './authors/create-author.entity';
+export * from './authors/create-author.model';
 
 export * from './authorsBooks/create-authorsBooks';

@@ -1,6 +1,5 @@
 import { Controller, Get, Post, Body, Delete, Put, Param, UseGuards } from '@nestjs/common';
 import { BooksService } from '../services/books.service';
-import { BookEntity } from '../models/books/book.entity';
 import { AuthGuard } from '@nestjs/passport';
 
 @Controller('books')

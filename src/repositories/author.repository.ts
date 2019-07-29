@@ -1,7 +1,7 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { Authors } from '../models/index';
 import { AUTHORS_REPOSITORY } from '../constants/constants';
-import { AuthorEntity } from '../models/authors/author.entity';
+
 @Injectable()
 export class AuthorRepository {
     constructor(@Inject(AUTHORS_REPOSITORY)

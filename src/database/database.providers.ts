@@ -1,5 +1,5 @@
 import { Sequelize } from 'sequelize-typescript';
-import { Authors } from '../models/authors/create-author.entity';
+import { Authors } from '../models/authors/create-author.model';
 import { Books } from '../models/books/create-book.models';
 import { AuthorsBooks } from '../models/authorsBooks/create-authorsBooks';
 import { Users } from '../models/users/create-user.models';
