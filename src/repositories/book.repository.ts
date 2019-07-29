@@ -1,4 +1,4 @@
-import { Authors } from '../models/authors/create-author.models';
+import { Authors } from '../models/authors/create-author.entity';
 import { Books } from '../models/books/create-book.models';
 import { AuthorsBooks } from '../models/authorsBooks/create-authorsBooks';
 
@@ -8,6 +8,7 @@ import { BOOKS_REPOSITORY, AUTHORS_BOOKS_REPOSITORY } from '../constants/constan
 export class BookRepository {
     constructor(@Inject(BOOKS_REPOSITORY) private readonly booksRepository: typeof Books,
                 @Inject(AUTHORS_BOOKS_REPOSITORY) private readonly authorBookRepository: typeof AuthorsBooks) {}
+
     async getAll(): Promise<any> {
         const authorBooks = await this.authorBookRepository.findAll<AuthorsBooks>({
             include: [
@@ -15,11 +16,11 @@ export class BookRepository {
                 Books,
             ],
         });
-        const books = await this.booksRepository.findAll<Books>({
-            include: [
-                AuthorsBooks,
-            ],
-        });
+        // const books = await this.booksRepository.findAll<Books>({
+        //     include: [
+        //         AuthorsBooks,
+        //     ],
+        // });
         return authorBooks;
     }
 
@@ -30,7 +31,7 @@ export class BookRepository {
         return await this.booksRepository.create(book);
     }
 
-    async updateBook(bookID: number, book: Books): Promise<any> {
+    async updateBook(bookID: number, book: Books): Promise<object> {
         return await this.booksRepository.update(
             {
                 title: book.title,

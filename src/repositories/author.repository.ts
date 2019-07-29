@@ -1,7 +1,7 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { Authors } from '../models/index';
 import { AUTHORS_REPOSITORY } from '../constants/constants';
-
+import { AuthorEntity } from '../models/authors/author.entity';
 @Injectable()
 export class AuthorRepository {
     constructor(@Inject(AUTHORS_REPOSITORY)
@@ -13,20 +13,56 @@ export class AuthorRepository {
     }
 
     // tslint:disable-next-line:variable-name
-    // async getAuthor(_id: number): Promise<Book[]> {
-    //     return await this.findById( _id);
-    // }
+    async getAuthor(authorID: number): Promise<Authors> {
+        return await this.authorRepository.findOne({ where: { id: authorID } });
+    }
 
-    // async createAuthor(author: Author) {
-    //     return await this.insert(author);
-    // }
+    async createAuthor(author: Authors): Promise<Authors> {
+        return await this.authorRepository.create(author);
+    }
 
-    // // tslint:disable-next-line:variable-name
-    // async updateAuthor(_id: number, author: Author) {
-    //   return await  this.update(_id, author );
-    // }
+    async updateAuthor(authorID: number, author: Authors): Promise<object> {
+        return await this.authorRepository.update(
+            {
+                name: author.name,
+                country: author.country,
+                birthday: author.birthday,
+                deathday: author.deathday,
+                img: author.img,
+            },
+            {
+                where: {
+                    id: authorID,
+                },
+            });
+    }
 
-    // async deleteAuthor(book: Book) {
-    //     this.delete(book);
-    // }
+    async deleteAuthor(authorID: number): Promise<object> {
+        try {
+            const author = await this.authorRepository.destroy({
+                where: {
+                    id: authorID,
+                },
+            });
+
+            if (!author) {
+                return {
+                    success: false,
+                    message: 'author not found',
+                    data: null,
+                };
+            }
+            return {
+                success: true,
+                message: 'author deleted',
+                data: null,
+            };
+        } catch (err) {
+            return {
+                success: false,
+                message: err.toString(),
+                data: null,
+            };
+        }
+    }
 }

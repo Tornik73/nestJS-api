@@ -1,6 +1,6 @@
 import { Model, Table, PrimaryKey, Column, ForeignKey, BelongsTo } from 'sequelize-typescript';
 // import { Authors, Books } from '../index';
-import { Authors } from '../authors/create-author.models';
+import { Authors } from '../authors/create-author.entity';
 import { Books } from '../books/create-book.models';
 
 @Table

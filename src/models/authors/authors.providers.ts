@@ -1,4 +1,4 @@
-import { Authors } from '../authors/create-author.models';
+import { Authors } from './create-author.entity';
 import { AUTHORS_REPOSITORY } from '../../constants/constants';
 
 export const authorsProviders = [

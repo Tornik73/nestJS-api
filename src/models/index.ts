@@ -7,6 +7,6 @@ export * from './books/books.providers';
 // export * from './users/create-user.models';
 
 export * from './auth/auth.model';
-export * from './authors/create-author.models';
+export * from './authors/create-author.entity';
 
 export * from './authorsBooks/create-authorsBooks';
