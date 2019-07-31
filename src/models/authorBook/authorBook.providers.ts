@@ -1,4 +1,4 @@
-import { AuthorsBooks } from '../authorsBooks/create-authorsBooks';
+import { AuthorsBooks } from './create-authorsBooks';
 import { AUTHORS_BOOKS_REPOSITORY } from '../../constants/constants';
 
 export const authorBookProviders = [

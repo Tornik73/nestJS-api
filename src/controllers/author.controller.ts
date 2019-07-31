@@ -1,20 +1,20 @@
 import { Controller, Get, Body, Post, Param, Put, Delete } from '@nestjs/common';
 import { AuthorService } from '../services/author.service';
-import { AuthorModel } from '../models/authors/author.model';
+import { AuthorModel } from '../models/author/author.model';
 import { Authors } from '../models';
 
 @Controller('authors')
 export class AuthorController {
     constructor(private authorService: AuthorService) { }
     @Get()
-    public async getAll(): Promise<AuthorModel[]> {
+    public async getAllAuthors(): Promise<AuthorModel[]> {
         const authors: AuthorModel[] = await this.authorService.findAllAuthors();
         return authors;
     }
 
     @Get(':id')
     // @UseGuards(AuthGuard('bearer'))
-    public async findOne(@Param('id') id: number): Promise<AuthorModel> {
+    public async findOneAuthor(@Param('id') id: number): Promise<AuthorModel> {
         const author: AuthorModel = await this.authorService.findOne(id);
         return author;
     }
@@ -27,7 +27,7 @@ export class AuthorController {
 
     @Put(':id')
     // @UseGuards(AuthGuard('bearer'))
-    public async changeBook(@Body() author: Authors, @Param('id') id: number) {
+    public async changeAuthor(@Body() author: Authors, @Param('id') id: number): Promise<AuthorModel> {
         const updatedAuthor: AuthorModel = await this.authorService.updateAuthor(id, author);
         return updatedAuthor;
     }
@@ -35,7 +35,7 @@ export class AuthorController {
     @Delete(':id')
     // @UseGuards(AuthGuard('bearer'))
     public async deleteAuthor(@Param('id') id: number): Promise<AuthorModel> {
-        const deletedAuthor = await this.authorService.deleteAuthor(id);
+        const deletedAuthor: object = await this.authorService.deleteAuthor(id);
         return deletedAuthor;
     }
 }

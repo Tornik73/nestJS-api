@@ -1,33 +1,31 @@
-import { Authors } from '../models/authors/create-author.model';
-import { Books } from '../models/books/create-book.models';
-import { AuthorsBooks } from '../models/authorsBooks/create-authorsBooks';
-
+import { AuthorsBooks, Books } from '../models/';
 import { Inject, Injectable } from '@nestjs/common';
 import { BOOKS_REPOSITORY, AUTHORS_BOOKS_REPOSITORY } from '../constants/constants';
+
 @Injectable()
 export class BookRepository {
     constructor(@Inject(BOOKS_REPOSITORY) private readonly booksRepository: typeof Books,
                 @Inject(AUTHORS_BOOKS_REPOSITORY) private readonly authorBookRepository: typeof AuthorsBooks) {}
 
-    async getAll(): Promise<any> {
-        const authorBooks = await this.authorBookRepository.findAll<AuthorsBooks>({
-            include: [
-                Authors,
-                Books,
-            ],
-        });
-        // const books = await this.booksRepository.findAll<Books>({
+    async getAll() {
+        // const authorBooks = await this.authorBookRepository.findAll<AuthorsBooks>({
         //     include: [
-        //         AuthorsBooks,
+        //         Authors,
+        //         Books,
         //     ],
         // });
-        return authorBooks;
+        const books = await this.booksRepository.findAll<Books>({
+            include: [
+                AuthorsBooks,
+            ],
+        });
+        return books;
     }
 
-    async getOneById(bookID): Promise<Books> {
+    async getOneById(bookID: number): Promise<Books> {
         return await this.booksRepository.findOne({where: {id: bookID}});
     }
-    async addBook(book): Promise<any> {
+    async addBook(book: Books): Promise<Books> {
         return await this.booksRepository.create(book);
     }
 
@@ -38,7 +36,6 @@ export class BookRepository {
                 price: book.price,
                 img: book.img,
                 description: book.description,
-
             },
             {
                 where: {
@@ -47,7 +44,7 @@ export class BookRepository {
             });
     }
 
-    async deleteBook(bookID: number) {
+    async deleteBook(bookID: number): Promise<object> {
         try {
             const book = await this.booksRepository.destroy({
                 where: {

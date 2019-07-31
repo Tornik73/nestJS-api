@@ -1,7 +1,7 @@
 import { Model, Table, PrimaryKey, Column, ForeignKey, BelongsTo } from 'sequelize-typescript';
 // import { Authors, Books } from '../index';
-import { Authors } from '../authors/create-author.model';
-import { Books } from '../books/create-book.models';
+import { Authors } from '../author/create-author.model';
+import { Books } from '../book/create-book.models';
 
 @Table
 export class AuthorsBooks extends Model<AuthorsBooks> {

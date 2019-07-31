@@ -1,21 +1,9 @@
 import { Module, RequestMethod, MiddlewareConsumer, NestModule } from '@nestjs/common';
-import { AuthorService } from './services/author.service';
-import { authorsProviders } from './models/authors/authors.providers';
-import { AuthorRepository } from './repositories/author.repository';
-import { BooksService } from './services/books.service';
-import { BookRepository } from './repositories/book.repository';
-import { booksProviders } from './models/books/books.providers';
-import { BooksController, UsersController } from './controllers';
-import { AuthorController } from './controllers/author.controller';
-import { authorBookProviders } from './models/authorsBooks/authorsBooks.providers';
+import { AuthorController, BookController, UserController, AuthController } from './controllers';
+import { AuthService, AuthorService, UserService, BookService } from './services';
+import { AuthorRepository, BookRepository, UserRepository, AuthRepository } from './repositories/';
+import { userProviders, bookProviders, authorProviders, authorBookProviders } from './models/';
 import { DatabaseModule } from './database/database.module';
-import { usersProviders } from './models/users/users.providers';
-import { UserRepository } from './repositories/user.repository';
-import { UsersService } from './services/users.service';
-import { AuthController } from './controllers/auth.controller';
-import { AuthService } from './services/auth.service';
-import { AuthRepository } from './repositories/auth.repository';
-import { environment } from './environment';
 import { JwtModule } from '@nestjs/jwt';
 import { HttpStrategy } from './common/http.strategy';
 
@@ -27,21 +15,21 @@ import { HttpStrategy } from './common/http.strategy';
     }),
     DatabaseModule,
   ],
-  controllers: [AuthorController, BooksController, UsersController, AuthController],
+  controllers: [AuthorController, BookController, UserController, AuthController],
   providers: [
     HttpStrategy,
     AuthorService,
-    BooksService,
-    UsersService,
+    BookService,
+    UserService,
     AuthService,
     BookRepository,
     AuthorRepository,
     UserRepository,
     AuthRepository,
-    ...booksProviders,
+    ...bookProviders,
     ...authorBookProviders,
-    ...authorsProviders,
-    ...usersProviders,
+    ...authorProviders,
+    ...userProviders,
   ],
 })
 export class AppModule implements NestModule {

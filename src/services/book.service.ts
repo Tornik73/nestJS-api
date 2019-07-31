@@ -1,29 +1,28 @@
-import { Injectable, Inject } from '@nestjs/common';
-// import { InjectRepository } from '@nestjs/typeorm';
-import { Books } from '../models/books/create-book.models';
+import { Injectable } from '@nestjs/common';
 import { BookRepository } from '../repositories/book.repository';
+import { BookModel, Books } from 'src/models';
 
 @Injectable()
-export class BooksService {
+export class BookService {
     constructor(private booksRepository: BookRepository) {}
 
-    async findAll(): Promise<Books[]> {
+    public async findAll(): Promise<Books[]> {
         return await this.booksRepository.getAll();
     }
 
-    async findOne(id: number): Promise<Books> {
+    public async findOne(id: number): Promise<Books> {
         return await this.booksRepository.getOneById(id);
     }
 
-    async addBook(book: Books): Promise<Books> {
+    public async addBook(book: Books): Promise<Books> {
         return await this.booksRepository.addBook(book);
     }
 
-    async updateBook(id: number, book: Books): Promise<object> {
+    public async updateBook(id: number, book: Books): Promise<BookModel> {
         return await this.booksRepository.updateBook(id, book);
     }
 
-    async deleteBook(id: number) {
+    public async deleteBook(id: number): Promise<object> {
         return await this.booksRepository.deleteBook(id);
     }
 

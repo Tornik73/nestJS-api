@@ -1,7 +1,7 @@
-import { Users } from '../users/create-user.models';
+import { Users } from './create-user.models';
 import { USERS_REPOSITORY } from '../../constants/constants';
 
-export const usersProviders = [
+export const userProviders = [
     {
         provide: USERS_REPOSITORY,
         useValue: Users,

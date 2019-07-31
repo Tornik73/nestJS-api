@@ -1,8 +1,8 @@
 import { Sequelize } from 'sequelize-typescript';
-import { Authors } from '../models/authors/create-author.model';
-import { Books } from '../models/books/create-book.models';
-import { AuthorsBooks } from '../models/authorsBooks/create-authorsBooks';
-import { Users } from '../models/users/create-user.models';
+import { Authors } from '../models/author/create-author.model';
+import { Books } from '../models/book/create-book.models';
+import { AuthorsBooks } from '../models/authorBook/create-authorsBooks';
+import { Users } from '../models/user/create-user.models';
 import { environment, Environment } from '../environment/index';
 
 const env: Environment = environment();

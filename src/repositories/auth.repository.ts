@@ -1,8 +1,7 @@
-import { Injectable, Inject, HttpException, HttpStatus } from '@nestjs/common';
-import { Users } from '../models/index';
-import { USERS_REPOSITORY, AUTH_REPOSITORY } from '../constants/constants';
+import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
+import { UserModel } from '../models/index';
 import { JwtService } from '@nestjs/jwt';
-import { UsersService } from '../services/users.service';
+import { UserService } from '../services/user.service';
 
 import bcrypt = require('bcrypt');
 
@@ -11,7 +10,7 @@ const salt = bcrypt.genSaltSync(10);
 @Injectable()
 export class AuthRepository {
     constructor(private readonly jwtService: JwtService,
-                private usersService: UsersService) { }
+                private usersService: UserService) { }
 
     async signUser(thisUser: { email: string, password: string }): Promise<any> {
         const responseUser = await this.usersService.findOneByEmail(thisUser.email);
@@ -37,8 +36,8 @@ export class AuthRepository {
         return await Object.assign(responseUser, { data: accessToken });
     }
 
-    public async createUser(user: Users): Promise<any> {
-        const thisUser = {
+    public async createUser(user: UserModel): Promise<UserModel> {
+        const thisUser: UserModel = {
             id: null,
             email: user.email,
             password: await bcrypt.hash(user.password, salt),

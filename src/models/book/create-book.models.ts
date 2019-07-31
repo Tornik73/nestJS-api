@@ -4,7 +4,7 @@ import { Column,
     AutoIncrement,
     PrimaryKey, BelongsToMany, HasMany } from 'sequelize-typescript';
 
-import { AuthorsBooks } from '../authorsBooks/create-authorsBooks';
+import { AuthorsBooks } from '../authorBook/create-authorsBooks';
 
 @Table
 export class Books extends Model<Books> {
