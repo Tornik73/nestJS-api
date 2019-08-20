@@ -28,6 +28,7 @@
     "@nestjs/swagger": "^3.1.0",
     "@nestjs/typeorm": "^6.1.2",
     "@nestjs/websockets": "^6.0.4",
+    "@sendgrid/mail": "^6.4.0",
     "@types/bcrypt": "^3.0.0",
     "bcrypt": "3.0.6",
     "class-transformer": "^0.2.3",

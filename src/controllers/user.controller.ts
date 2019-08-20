@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Body, Post, Put, Delete, UseGuards  } from '@nestjs/common';
+import { Controller, Get, Param, Body, Post, Put, Delete, Request  } from '@nestjs/common';
 import { UserService } from '../services/user.service';
 import { AuthGuard } from '@nestjs/passport';
 import { Users, UserModel } from '../models';
@@ -22,8 +22,8 @@ export class UserController {
     }
 
     @Post('')
-    public async createUser(@Body() user: UserModel): Promise<UserModel> {
-        const createdUser: UserModel = await this.userService.addUser(user);
+    public async createUser(@Body() user: UserModel): Promise<any> {
+        const createdUser = await this.userService.addUser(user);
         return createdUser;
     }
 
@@ -40,4 +40,5 @@ export class UserController {
         const deletedUser: Users = await this.userService.deleteUser(id);
         return deletedUser;
     }
+
 }

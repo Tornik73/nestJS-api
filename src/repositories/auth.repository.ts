@@ -40,11 +40,18 @@ export class AuthRepository {
         const thisUser: UserModel = {
             id: null,
             email: user.email,
+            name: user.name,
+            username: user.username,
+            lastname: user.lastname,
             password: await bcrypt.hash(user.password, salt),
             telephone: user.telephone,
             age: user.age,
+            country: user.country,
+            gender: user.gender,
             img: user.img,
             isAdmin: user.isAdmin,
+            isActive: user.isActive,
+            userVerify: user.userVerify,
         };
 
         const { email } = thisUser;

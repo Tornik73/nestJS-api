@@ -18,6 +18,9 @@ export class UserRepository {
         return await this.usersRepository.findOne({ where: { id: userID } });
     }
 
+    async getOneByVerifyCode(code: string): Promise<Users> {
+        return await this.usersRepository.findOne({ where: { userVerify: code } });
+    }
     async getOneByEmail(userEmail: string): Promise<Users> {
         return await this.usersRepository.findOne({ where: { email: userEmail } });
     }
@@ -32,6 +35,7 @@ export class UserRepository {
                 email: user.email,
                 password: user.password,
                 isAdmin: user.isAdmin,
+                isActive: user.isActive,
                 telephone: user.telephone,
                 age: user.age,
                 img: user.img,

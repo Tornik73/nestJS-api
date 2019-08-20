@@ -9,7 +9,8 @@ export const environmentDevelopment: Environment = {
     port: 3306,
     username: 'root',
     password: 'root',
-    database: 'bookstore',
+    database: 'bookStoreDB',
     jwtSecretKey: fs.readFileSync('src/secrets/jwtSecretKey.key').toString(),
     tokenExpireTime: 60 * 60 * 24,
+    apiKey: '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',
 };

@@ -15,6 +15,10 @@ export class UserService {
         return await this.userRepository.getOneById(id);
     }
 
+    public async findOneByVerifyCode(verifyCode: string): Promise<any> {
+        return await this.userRepository.getOneByVerifyCode(verifyCode);
+    }
+
     public async addUser(user: UserModel): Promise<UserModel> {
         return await this.userRepository.addUser(user);
     }

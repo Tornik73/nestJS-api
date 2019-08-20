@@ -11,6 +11,7 @@ export interface Environment {
     database?: string;
     jwtSecretKey?: string;
     tokenExpireTime?: number;
+    apiKey?: string;
 }
 
 export const environment = () => {

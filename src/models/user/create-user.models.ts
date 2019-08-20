@@ -11,10 +11,16 @@ export class Users extends Model<Users> {
     email: string;
 
     @Column
-    password: string;
+    name: string;
 
     @Column
-    isAdmin: boolean;
+    username: string;
+
+    @Column
+    lastname: string;
+
+    @Column
+    password: string;
 
     @Column
     telephone: string;
@@ -23,5 +29,20 @@ export class Users extends Model<Users> {
     age: number;
 
     @Column
+    country: string;
+
+    @Column
+    gender: string;
+
+    @Column
     img: string;
+
+    @Column
+    userVerify: string;
+
+    @Column
+    isAdmin: boolean = false;
+
+    @Column
+    isActive: boolean = false;
 }
