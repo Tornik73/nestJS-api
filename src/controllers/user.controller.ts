@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Body, Post, Put, Delete, Request  } from '@nestjs/common';
+import { Controller, Get, Param, Body, Post, Put, Delete, Request, UseGuards  } from '@nestjs/common';
 import { UserService } from '../services/user.service';
 import { AuthGuard } from '@nestjs/passport';
 import { Users, UserModel } from '../models';
@@ -9,13 +9,14 @@ export class UserController {
     constructor(private userService: UserService) {}
 
     @Get()
+    @UseGuards(AuthGuard('bearer'))
     public async findAllUsers(): Promise<UserModel[]> {
         const users: UserModel[] = await this.userService.findAll();
         return users;
     }
 
     @Get(':id')
-    // @UseGuards(AuthGuard('bearer'))
+    @UseGuards(AuthGuard('bearer'))
     public async findOneUser(@Param('id') id: number): Promise<UserModel> {
         const user: UserModel = await this.userService.findOne(id);
         return user;

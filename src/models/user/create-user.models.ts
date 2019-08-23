@@ -41,8 +41,8 @@ export class Users extends Model<Users> {
     userVerify: string;
 
     @Column
-    isAdmin: boolean = false;
+    isAdmin: boolean;
 
     @Column
-    isActive: boolean = false;
+    isActive: boolean;
 }

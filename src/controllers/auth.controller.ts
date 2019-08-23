@@ -32,23 +32,23 @@ export class AuthController {
         const user = await this.authService.create(Object.assign( req.body, {isAdmin : req.body.isAdmin || 0, userVerify: userVerifyCode}));
         const sgMail = require('@sendgrid/mail');
         sgMail.setApiKey(env.apiKey);
-        const link = 'http://' + env.host + ':4000/confirm/' + userVerifyCode;
+        const link = 'http://' + env.host + ':8100/confirm/' + userVerifyCode;
         const msg = {
-            to: 'tanun@ionemail.net',
+            to: 'wipix@alltopmail.com',
             from: 'bookstore@bookstore.com',
             subject: 'Welcome to BookStore! Confirm Your Email!',
             text: 'and easy to do anywhere, even with Node.js',
-            html: `<strong>Confirm your email by clicking on this link:</strong><a href="` + link + `"> Confirm email</a>`,
+            html: `<strong>Confirm your email by clicking on this link1:</strong><a href="` + link + `"> Confirm email</a>`,
         };
         sgMail.send(msg);
         return user;
     }
 
     @Get('confirm/:token')
-    public async verifyUser(@Request() req, @Param('token') token: string): Promise<any> {
-        let response = await this.userService.findOneByVerifyCode(token);
+    public async verifyUser(@Param('token') token: string): Promise<any> {
+        const response = await this.userService.findOneByVerifyCode(token);
         response.isActive = true;
-        const changedUser: UserModel = await this.userService.updateUser(response.id, response);
+        const changedUser = await this.userService.updateUser(response.id, response);
         return changedUser;
     }
 }

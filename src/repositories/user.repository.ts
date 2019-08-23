@@ -29,22 +29,48 @@ export class UserRepository {
         return await this.usersRepository.create(user);
     }
 
-    async updateUser(userID: number, user: Users): Promise<any> {
-        return await this.usersRepository.update(
+    async updateUser(userID: number, user): Promise<object> {
+        try {
+        const updatedUser = await this.usersRepository.update(
             {
                 email: user.email,
-                password: user.password,
-                isAdmin: user.isAdmin,
-                isActive: user.isActive,
+                name: user.name,
+                username: user.username,
+                lastname: user.lastname,
+                // password: user.password,
                 telephone: user.telephone,
                 age: user.age,
+                country: user.country,
+                gender: user.gender,
                 img: user.img,
+                isAdmin: user.isAdmin,
+                isActive: user.isActive,
+                userVerify: user.userVerify,
             },
             {
                 where: {
                     id: userID,
                 },
             });
+        if (!updatedUser) {
+            return {
+                success: false,
+                message: 'user not found',
+                data: null,
+            };
+        }
+        return {
+            success: true,
+            message: 'user updated',
+            data: updatedUser,
+        };
+        } catch (err) {
+            return {
+                success: false,
+                message: err.toString(),
+                data: null,
+            };
+        }
     }
 
     async deleteUser(userID: number): Promise<any> {

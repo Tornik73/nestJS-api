@@ -6,7 +6,7 @@ import { BookModel, Books } from 'src/models';
 export class BookService {
     constructor(private booksRepository: BookRepository) {}
 
-    public async findAll(): Promise<Books[]> {
+    public async findAll(): Promise<any[]> {
         return await this.booksRepository.getAll();
     }
 

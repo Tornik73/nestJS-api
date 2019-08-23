@@ -27,7 +27,7 @@ export class UserService {
         return await this.userRepository.getOneByEmail(email);
     }
 
-    public async updateUser(id: number, user: Users): Promise<Users> {
+    public async updateUser(id: number, user: any): Promise<any> {
         return await this.userRepository.updateUser(id, user);
     }
 

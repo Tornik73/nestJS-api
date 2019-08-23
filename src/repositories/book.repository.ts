@@ -1,4 +1,4 @@
-import { AuthorsBooks, Books } from '../models/';
+import { AuthorsBooks, Books, Authors } from '../models/';
 import { Inject, Injectable } from '@nestjs/common';
 import { BOOKS_REPOSITORY, AUTHORS_BOOKS_REPOSITORY } from '../constants/constants';
 
@@ -8,18 +8,18 @@ export class BookRepository {
                 @Inject(AUTHORS_BOOKS_REPOSITORY) private readonly authorBookRepository: typeof AuthorsBooks) {}
 
     async getAll() {
-        // const authorBooks = await this.authorBookRepository.findAll<AuthorsBooks>({
-        //     include: [
-        //         Authors,
-        //         Books,
-        //     ],
-        // });
-        const books = await this.booksRepository.findAll<Books>({
+        const authorBooks = await this.authorBookRepository.findAll<AuthorsBooks>({
             include: [
-                AuthorsBooks,
+                Authors,
+                Books,
             ],
         });
-        return books;
+        // const books = await this.booksRepository.findAll<Books>({
+        //     include: [
+        //         AuthorsBooks,
+        //     ],
+        // });
+        return authorBooks;
     }
 
     async getOneById(bookID: number): Promise<Books> {

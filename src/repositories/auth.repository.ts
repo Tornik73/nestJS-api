@@ -23,13 +23,15 @@ export class AuthRepository {
             throw new HttpException({ message: 'No such user exists' }, HttpStatus.BAD_REQUEST);
         }
 
-        const payloadUser = {
+        const payloadUser: UserModel = {
             id: responseUser.id,
             email: responseUser.email,
-            password: responseUser.password,
+            // password: responseUser.password,
             telephone: responseUser.telephone,
             age: responseUser.age,
             isAdmin: responseUser.isAdmin,
+            username: responseUser.username,
+            isActive: responseUser.isActive,
         };
         const payload = JSON.stringify(payloadUser);
         const accessToken = await this.jwtService.sign(payload);
