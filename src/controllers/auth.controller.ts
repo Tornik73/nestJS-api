@@ -32,7 +32,7 @@ export class AuthController {
         const user = await this.authService.create(Object.assign( req.body, {isAdmin : req.body.isAdmin || 0, userVerify: userVerifyCode}));
         const sgMail = require('@sendgrid/mail');
         sgMail.setApiKey(env.apiKey);
-        const link = 'http://' + env.host + ':8100/confirm/' + userVerifyCode;
+        const link = 'http://' + env.host + ':4000/confirm/' + userVerifyCode;
         const msg = {
             to: 'wipix@alltopmail.com',
             from: 'bookstore@bookstore.com',

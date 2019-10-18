@@ -7,4 +7,5 @@ export interface AuthorModel {
     createdDate?: Date;
     updatedDate?: Date;
     isDeleted?: boolean;
+    authorImg?: string;
 }

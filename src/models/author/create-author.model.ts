@@ -22,7 +22,7 @@ export class Authors extends Model<Authors> {
     deathday: Date;
 
     @Column
-    img: string;
+    authorImg: string;
 
     @HasMany(() => AuthorsBooks)
     authorBooks: AuthorsBooks[];

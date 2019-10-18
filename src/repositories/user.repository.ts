@@ -29,7 +29,7 @@ export class UserRepository {
         return await this.usersRepository.create(user);
     }
 
-    async updateUser(userID: number, user): Promise<object> {
+    async updateUser(userID: number, user: UserModel): Promise<object> {
         try {
         const updatedUser = await this.usersRepository.update(
             {
@@ -55,14 +55,14 @@ export class UserRepository {
         if (!updatedUser) {
             return {
                 success: false,
-                message: 'user not found',
+                message: `user ${userID} not found`,
                 data: null,
             };
         }
         return {
             success: true,
-            message: 'user updated',
-            data: updatedUser,
+            message: `user ${userID} updated`,
+            data: null,
         };
         } catch (err) {
             return {

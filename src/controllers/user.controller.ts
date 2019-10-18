@@ -16,7 +16,7 @@ export class UserController {
     }
 
     @Get(':id')
-    @UseGuards(AuthGuard('bearer'))
+    // @UseGuards(AuthGuard('bearer'))
     public async findOneUser(@Param('id') id: number): Promise<UserModel> {
         const user: UserModel = await this.userService.findOne(id);
         return user;

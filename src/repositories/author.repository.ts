@@ -1,6 +1,7 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { Authors } from '../models/index';
 import { AUTHORS_REPOSITORY } from '../constants/constants';
+import { AuthorModel } from 'src/models/author/author.model';
 
 @Injectable()
 export class AuthorRepository {
@@ -28,7 +29,7 @@ export class AuthorRepository {
                 country: author.country,
                 birthday: author.birthday,
                 deathday: author.deathday,
-                img: author.img,
+                authorImg: author.img,
             },
             {
                 where: {

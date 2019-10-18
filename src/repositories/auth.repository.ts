@@ -26,11 +26,14 @@ export class AuthRepository {
         const payloadUser: UserModel = {
             id: responseUser.id,
             email: responseUser.email,
-            // password: responseUser.password,
+            name: responseUser.name,
+            lastname: responseUser.lastname,
+            username: responseUser.username,
             telephone: responseUser.telephone,
             age: responseUser.age,
+            country: responseUser.country,
+            gender: responseUser.gender,
             isAdmin: responseUser.isAdmin,
-            username: responseUser.username,
             isActive: responseUser.isActive,
         };
         const payload = JSON.stringify(payloadUser);
