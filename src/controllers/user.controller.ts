@@ -28,6 +28,12 @@ export class UserController {
         return createdUser;
     }
 
+    @Post('charge')
+    public async payWithStripe(@Body() payload: any): Promise<any> {
+        const response = await this.userService.payWithStripe(payload);
+        return response;
+    }
+
     @Put(':id')
     // @UseGuards(AuthGuard('bearer'))
     public async changeUser(@Body() user: Users, @Param('id') id: number): Promise<UserModel> {

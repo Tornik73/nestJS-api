@@ -4,6 +4,7 @@ import { Books } from '../models/book/create-book.models';
 import { AuthorsBooks } from '../models/authorBook/create-authorsBooks';
 import { Users } from '../models/user/create-user.models';
 import { environment, Environment } from '../environment/index';
+import { Chat } from '../models/chat/create-chat.model';
 
 const env: Environment = environment();
 
@@ -20,7 +21,7 @@ export const databaseProviders = [
                 password: env.password,
                 database: env.database,
             });
-            sequelize.addModels([Books, Authors, AuthorsBooks, Users]);
+            sequelize.addModels([Books, Authors, AuthorsBooks, Users, Chat]);
             await sequelize.sync();
             return sequelize;
         },

@@ -38,4 +38,9 @@ export class UserService {
     public async findOneByToken(userToken: string): Promise<Users> {
         return await this.userRepository.findOneByToken(userToken);
     }
+
+    public async payWithStripe( payload: string) {
+        const response = await this.userRepository.payWithStripe(payload);
+        return response;
+    }
 }

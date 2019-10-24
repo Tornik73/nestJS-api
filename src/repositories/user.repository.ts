@@ -4,10 +4,13 @@ import { Users, UserModel } from '../models/';
 import { USERS_REPOSITORY } from '../constants/constants';
 
 import jwtDecode = require('jwt-decode');
+import { InjectStripe } from 'nestjs-stripe';
+import * as Stripe from 'stripe';
 
 @Injectable()
 export class UserRepository {
-    constructor(@Inject(USERS_REPOSITORY) private readonly usersRepository: typeof Users) {}
+    constructor(@Inject(USERS_REPOSITORY) private readonly usersRepository: typeof Users,
+                @InjectStripe() private readonly stripeClient: Stripe) {}
 
     public async getAll(): Promise<Users[]> {
         const users = await this.usersRepository.findAll<Users>();
@@ -52,17 +55,17 @@ export class UserRepository {
                     id: userID,
                 },
             });
-        if (!updatedUser) {
+        if (updatedUser[0] === 0) {
             return {
                 success: false,
                 message: `user ${userID} not found`,
-                data: null,
+                data: updatedUser,
             };
         }
         return {
             success: true,
             message: `user ${userID} updated`,
-            data: null,
+            data: updatedUser,
         };
         } catch (err) {
             return {
@@ -106,4 +109,31 @@ export class UserRepository {
         const user = await jwtDecode(userToken);
         return await user;
     }
+
+    public async payWithStripe(payload: string) {
+        // const stripe = new Stripe('pk_test_uwjRZA128Nvmq3111lJLJxhs00rQ8H9M7T');
+        // stripe.tokens.create({
+        //     card: {
+        //         amount: 2000,
+        //         currency: 'usd',
+        //         source: 'tok_mastercard',
+        //         description: 'Charge for jenny.rosen@example.com',
+        //       }
+        //   }, (err, token) => {
+        //         stripe.charges.create({
+        //             amount: 1231,
+        //             currency: 'USD',
+        //             source: token,
+        //         }, (err, charge) => {
+        //             if(err & err.type === 'StripeCardError') {
+        //                 console.log('Declined');
+        //             }
+        //             console.log(charge);
+        //         });
+        //   });
+        // return {
+        //     success: true,
+        // };
+    }
+
 }

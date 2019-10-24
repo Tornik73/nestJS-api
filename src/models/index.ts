@@ -13,3 +13,7 @@ export * from './author/author.providers';
 
 export * from './authorBook/create-authorsBooks';
 export * from './authorBook/authorBook.providers';
+
+export * from './chat/create-chat.model';
+export * from './chat/chat.providers';
+export * from './chat/chat.model';

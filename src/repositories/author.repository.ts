@@ -22,7 +22,7 @@ export class AuthorRepository {
         return await this.authorRepository.create(author);
     }
 
-    async updateAuthor(authorID: number, author: Authors): Promise<object> {
+    async updateAuthor(authorID: number, author: any): Promise<any> {
         return await this.authorRepository.update(
             {
                 name: author.name,
