@@ -7,7 +7,7 @@ export class BookRepository {
     constructor(@Inject(BOOKS_REPOSITORY) private readonly booksRepository: typeof Books,
                 @Inject(AUTHORS_BOOKS_REPOSITORY) private readonly authorBookRepository: typeof AuthorsBooks) {}
 
-    async getAll() {
+    async getAll(): Promise<any> {
         const authorBooks = await this.authorBookRepository.findAll<AuthorsBooks>({
             include: [
                 Authors,
@@ -19,7 +19,9 @@ export class BookRepository {
         //         AuthorsBooks,
         //     ],
         // });
-        return authorBooks;
+        return {
+            data: authorBooks,
+        };
     }
 
     async getOneById(bookID: number): Promise<Books> {

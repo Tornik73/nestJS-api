@@ -16,11 +16,11 @@ export class AuthRepository {
         const responseUser = await this.usersService.findOneByEmail(thisUser.email);
 
         if (!responseUser) {
-            throw new HttpException({ message: 'User with such email does not exist' }, HttpStatus.BAD_REQUEST);
+            throw new HttpException({ message: 'User with such email does not exist' , error: true}, HttpStatus.BAD_REQUEST);
         }
         const matchPasswords = await bcrypt.compare(thisUser.password, responseUser.password);
         if (!matchPasswords) {
-            throw new HttpException({ message: 'No such user exists' }, HttpStatus.BAD_REQUEST);
+            throw new HttpException({ message: 'No such user exists' , error: true}, HttpStatus.BAD_REQUEST);
         }
 
         const payloadUser: UserModel = {
