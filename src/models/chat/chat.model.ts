@@ -1,27 +1,25 @@
 export interface ChatMessageModel {
     id: number | null;
-    uuid: string;
-    name: string;
+    uuid: string | null;
+    username: string;
     messageText: string;
-    time: string; // TODO: Change on Date type
-    isRead?: boolean;
-    isReceived?: boolean;
-    date: string; // TODO: Change on Date type
-}
-
-export interface SendedChatMessage {
-    id: number | null;
-    uuid: string;
-    name: string;
-    messageText: string;
-    time: string; // TODO: Change on Date type
-    date: string; // TODO: Change on Date type
+    time: string;
+    isRead: boolean;
+    isReceived: boolean;
+    date: string;
 }
 
 export interface ChatMessageResponse {
     messageId?: number;
     uuid: string;
     success: boolean;
+    message: string;
+    statusCode: number;
+}
+
+export interface GetChatMessagesModel {
+    success: boolean;
+    data: ChatMessageModel[];
     message: string;
     statusCode: number;
 }

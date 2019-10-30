@@ -7,6 +7,7 @@ import { DatabaseModule } from './database/database.module';
 import { JwtModule } from '@nestjs/jwt';
 import { HttpStrategy } from './common/http.strategy';
 import { StripeModule } from 'nestjs-stripe';
+import { ChatGateway } from './gateway/chat.gateway';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { StripeModule } from 'nestjs-stripe';
   ],
   controllers: [AuthorController, BookController, UserController, AuthController, ChatController],
   providers: [
+    ChatGateway,
     HttpStrategy,
     AuthorService,
     BookService,

@@ -16,7 +16,7 @@ export class Chat extends Model<Chat> {
     uuid: string;
 
     @Column
-    name: string;
+    username: string;
 
     @Column
     messageText: string;
