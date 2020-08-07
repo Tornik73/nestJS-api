@@ -33,7 +33,7 @@
     "@types/bcrypt": "^3.0.0",
     "@types/stripe": "^7.10.3",
     "bcrypt": "3.0.6",
-    "class-transformer": "^0.2.3",
+    "class-transformer": "^0.3.1",
     "class-validator": "^0.9.1",
     "jwt-decode": "^2.2.0",
     "mysql": "^2.17.1",
